@@ -7,9 +7,7 @@
 //
 
 #import "YHMusicPlayTool.h"
-#import "MJExtension.h"
 #import "YHMusicModel.h"
-#import "YHTimeIntervalTool.h"
 #import "YHMusicDataTool.h"
 
 static NSMutableDictionary *_songs;
@@ -20,11 +18,20 @@ static NSMutableDictionary *_songs;
     _songs = [NSMutableDictionary dictionary];
 }
 
++ (AVAudioPlayer *)getCurrentPlayer
+{
+    YHMusicModel *current = [YHMusicDataTool getCurrentMusic];
+    
+    AVAudioPlayer *player = _songs[current.name];
+    
+    return player;
+}
+
 
 /**
  * 播放制定音乐
  */
-+ (void)playMusicWithModel:(YHMusicModel *)model
++ (AVAudioPlayer *)playMusicWithModel:(YHMusicModel *)model
 {
     
     AVAudioPlayer *player = _songs[model.name];
@@ -32,14 +39,12 @@ static NSMutableDictionary *_songs;
         NSURL *songUrl = [[NSBundle mainBundle] URLForResource:model.filename withExtension:nil];
         player = [[AVAudioPlayer alloc]initWithContentsOfURL:songUrl error:nil];
         _songs[model.name] = player;
-        [YHMusicDataTool setCurrentMusicWith:model];
-        
     }
+    
     [player prepareToPlay];
     [player play];
     
-    //播放音乐同时发出通知
-//    [YHNotificationCenter postNotificationName:YHPlayNotification object:self];
+    return player;
 }
 /**
  * 暂停指定文件名音乐
@@ -58,11 +63,11 @@ static NSMutableDictionary *_songs;
  */
 + (void)stopPlayingMusicWithModel:(YHMusicModel *)model
 {
-
+    if (model == nil) return;
+    
     AVAudioPlayer *current = _songs[model.name];
     [current stop];
     [_songs removeObjectForKey:model.name];
     current = nil;
-    [YHMusicDataTool setCurrentMusicWith:nil];
 }
 @end

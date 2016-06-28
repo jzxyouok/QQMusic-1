@@ -13,12 +13,13 @@
 @class YHMusicModel;
 @interface YHMusicPlayTool : NSObject
 
++ (AVAudioPlayer *)getCurrentPlayer;
 
 + (void)pauseMusicWithModel:(YHMusicModel *)model;
 
 + (void)stopPlayingMusicWithModel:(YHMusicModel *)model;
 
-+ (void)playMusicWithModel:(YHMusicModel *)model;
++ (AVAudioPlayer *)playMusicWithModel:(YHMusicModel *)model;
 
 
 @end

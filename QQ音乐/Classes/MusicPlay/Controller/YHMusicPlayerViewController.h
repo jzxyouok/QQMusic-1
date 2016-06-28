@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class YHMusicModel;
-
 @interface YHMusicPlayerViewController : UIViewController
 
-@property (strong,nonatomic) YHMusicModel *model;
+- (void)show;
 
 @end

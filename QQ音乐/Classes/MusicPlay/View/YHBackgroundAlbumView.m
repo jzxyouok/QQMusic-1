@@ -7,15 +7,10 @@
 //
 
 #import "YHBackgroundAlbumView.h"
-#import "YHFooterMenu.h"
-#import "YHMusicModel.h"
-#import "YHMusicPlayTool.h"
 
 
 @interface YHBackgroundAlbumView ()
 
-
-@property (weak,nonatomic) YHFooterMenu * footerMenu;
 @property (weak,nonatomic) UIImageView * backgroundView;
 @property (weak,nonatomic) UIImageView * iconImageView;
 @property (weak,nonatomic) UIToolbar * toolBar;
@@ -57,18 +52,21 @@
 }
 - (void)setupUI
 {
-    //底部菜单
-    YHFooterMenu *footerMenu = [[YHFooterMenu alloc]init];
-    [_backgroundView addSubview:footerMenu];
-    _footerMenu = footerMenu;
-    
     //中间icon
     UIImageView *imageView = [[UIImageView alloc]init];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_backgroundView addSubview:imageView];
     _iconImageView = imageView;
+}
+
+- (void)setAlbumImage:(UIImage *)albumImage
+{
+    _albumImage = albumImage;
     
-   
+    self.backgroundView.image = albumImage;
+    
+    self.iconImageView.image = albumImage;
+    
 }
 
 #pragma mark - 布局子控件
@@ -85,21 +83,22 @@
     //毛玻璃
     _toolBar.frame = self.bounds;
     
-    //底部菜单
-    CGFloat meunH = bgH * 0.25;
-    CGFloat menuX = 0;
-    CGFloat menuY = bgH - meunH;
-    _footerMenu.frame = (CGRect){menuX,menuY,bgW,meunH};
+//    //底部菜单
+//    CGFloat meunH = bgH * 0.25;
+//    CGFloat menuX = 0;
+//    CGFloat menuY = bgH - meunH;
+//    _footerMenu.frame = (CGRect){menuX,menuY,bgW,meunH};
     
     //中间icon
     CGFloat iconW = bgW * 0.7;
     _iconImageView.frame = (CGRect){0,0,iconW,iconW};
     _iconImageView.centerX = bgW * 0.5;
-    _iconImageView.centerY = YHStatusBarHeight + (self.height - YHStatusBarHeight - meunH) * 0.5;
+    _iconImageView.centerY = YHStatusBarHeight + (self.height - YHStatusBarHeight - bgH * 0.25) * 0.5;
     _iconImageView.layer.cornerRadius = iconW * 0.5;
     _iconImageView.layer.borderColor = [UIColor colorWithRed:36/255.0 green:36/255.0 blue:36/255.0 alpha:1].CGColor;
     _iconImageView.layer.borderWidth = iconW * 0.07;
     _iconImageView.layer.masksToBounds = YES;
 }
+
 
 @end

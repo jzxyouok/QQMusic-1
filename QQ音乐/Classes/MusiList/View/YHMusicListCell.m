@@ -75,7 +75,7 @@
     _model = model;
     _musicNameLabel.text = model.name;
     _singerNameLabel.text = model.singer;
-    _playingIndictorView.hidden = !model.playing;
+
 }
 
 

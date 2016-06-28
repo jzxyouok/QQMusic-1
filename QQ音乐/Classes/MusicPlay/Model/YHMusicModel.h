@@ -11,10 +11,6 @@
 
 @interface YHMusicModel : NSObject
 /**
- * cell是否被选中
- */
-@property (assign,nonatomic,getter=isPlaying) BOOL playing;
-/**
  * 歌曲名称
  */
 @property (copy,nonatomic) NSString *name;

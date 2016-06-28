@@ -22,7 +22,7 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
 @interface YHMusicListTableVC ()
 
 @property (weak,nonatomic) YHTopBackgroundImageView * topBgImageView;
-@property (strong,nonatomic) NSArray<YHMusicModel*> *musics;
+@property (strong,nonatomic) YHMusicPlayerViewController * playingVC;
 
 @end
 
@@ -31,16 +31,10 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
 #pragma mark - view生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupData];
     [self setupUI];
 }
 
-#pragma mark - 初始化
-//设置数据
-- (void)setupData
-{
-    self.musics = [YHMusicDataTool allMusics];
-}
+
 //设置UI
 - (void)setupUI
 {
@@ -61,13 +55,13 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.musics.count;
+    return [YHMusicDataTool allMusics].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YHMusicListCell *cell = [YHMusicListCell cellWithTableView:tableView];
-    cell.model = self.musics[indexPath.row];
+    cell.model = [YHMusicDataTool allMusics][indexPath.row];
     return cell;
 }
 
@@ -78,29 +72,16 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //显示正在播放的标示
-    [self showIndictorWhilePlaying:indexPath];
     
-    //跳转控制器
-    YHMusicPlayerViewController *playerVC = [[YHMusicPlayerViewController alloc]init];
+    YHMusicModel *model = [YHMusicDataTool allMusics][indexPath.row];
+    [YHMusicDataTool setCurrentMusicWith:model];
     
-    playerVC.model = self.musics[indexPath.row];
-    [self.navigationController pushViewController:playerVC animated:YES];
+    
+    [self.playingVC show];
+
 }
 
-- (void)showIndictorWhilePlaying:(NSIndexPath *)indexPath
-{
-    [self.musics enumerateObjectsUsingBlock:^(YHMusicModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx == indexPath.row) {
-            obj.playing = YES;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-            return ;
-        }
-        obj.playing = NO;
-    }];
-}
+
 
 #pragma mark - UIScorllView 代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -116,6 +97,15 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
         return;
     }
     _topBgImageView.transform = CGAffineTransformMakeScale(scaleW, scaleH);
+}
+
+#pragma mark - 懒加载
+- (YHMusicPlayerViewController *)playingVC
+{
+    if (!_playingVC) {
+        _playingVC = [[YHMusicPlayerViewController alloc]init];
+    }
+    return _playingVC;
 }
 
 

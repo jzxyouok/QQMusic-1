@@ -11,6 +11,6 @@
 
 @interface YHBackgroundAlbumView : UIView
 
-
+@property (strong,nonatomic) UIImage *albumImage;
 
 @end

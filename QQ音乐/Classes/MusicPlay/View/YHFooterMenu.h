@@ -14,6 +14,25 @@ typedef NS_ENUM(NSInteger,YHFooterMenuBtnType) {
     YHFooterMenuBtnTypeLastSong
 };
 
+@protocol YHFooterMenuDelegate <NSObject>
+
+- (void)next;
+- (void)previous;
+- (void)start;
+- (void)pause;
+- (void)sliderBeginChange;
+- (void)sliderChanging;
+- (void)sliderEndChange:(NSTimeInterval)endTime;
+
+@end
+
 @interface YHFooterMenu : UIView
+
+@property (weak,nonatomic) id<YHFooterMenuDelegate> delegate;
+- (void)setBtnSelected:(BOOL)select;
+- (void)setTotalTime:(NSTimeInterval )total;
+- (void)setProgressTime:(NSTimeInterval)progress;
+
+
 
 @end

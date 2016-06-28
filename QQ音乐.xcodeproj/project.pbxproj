@@ -19,6 +19,7 @@
 		8C290E211D1FF6BE007B3158 /* UIView+YHFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C290E201D1FF6BE007B3158 /* UIView+YHFrame.m */; };
 		8C622BB81D228020008B4DAF /* YHTimeIntervalTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C622BB71D228020008B4DAF /* YHTimeIntervalTool.m */; };
 		8C622BBB1D229E77008B4DAF /* YHMusicDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C622BBA1D229E77008B4DAF /* YHMusicDataTool.m */; };
+		8C622BBE1D22E762008B4DAF /* YHHeaderMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C622BBD1D22E762008B4DAF /* YHHeaderMenu.m */; };
 		8C731D991D202B6C0085BEBB /* YHMusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C731D981D202B6C0085BEBB /* YHMusicListCell.m */; };
 		8C9500001D20294C006AE153 /* NSObject+MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C95FFF81D20294C006AE153 /* NSObject+MJIvar.m */; };
 		8C9500011D20294C006AE153 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C95FFFA1D20294C006AE153 /* NSObject+MJKeyValue.m */; };
@@ -121,6 +122,8 @@
 		8C622BB71D228020008B4DAF /* YHTimeIntervalTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHTimeIntervalTool.m; sourceTree = "<group>"; };
 		8C622BB91D229E77008B4DAF /* YHMusicDataTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMusicDataTool.h; sourceTree = "<group>"; };
 		8C622BBA1D229E77008B4DAF /* YHMusicDataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMusicDataTool.m; sourceTree = "<group>"; };
+		8C622BBC1D22E762008B4DAF /* YHHeaderMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHHeaderMenu.h; sourceTree = "<group>"; };
+		8C622BBD1D22E762008B4DAF /* YHHeaderMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHHeaderMenu.m; sourceTree = "<group>"; };
 		8C731D971D202B6C0085BEBB /* YHMusicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMusicListCell.h; sourceTree = "<group>"; };
 		8C731D981D202B6C0085BEBB /* YHMusicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMusicListCell.m; sourceTree = "<group>"; };
 		8C95FF6F1D20154D006AE153 /* bb@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bb@2x.jpg"; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 			children = (
 				8C290E161D1FF3E5007B3158 /* YHBackgroundAlbumView.h */,
 				8C290E171D1FF3E5007B3158 /* YHBackgroundAlbumView.m */,
+				8C622BBC1D22E762008B4DAF /* YHHeaderMenu.h */,
+				8C622BBD1D22E762008B4DAF /* YHHeaderMenu.m */,
 				8C290E191D1FF4AE007B3158 /* YHFooterMenu.h */,
 				8C290E1A1D1FF4AE007B3158 /* YHFooterMenu.m */,
 				8CBACA561D200DE700D01032 /* YHStartOrPauseBtn.h */,
@@ -683,6 +688,7 @@
 				8C95FFEA1D201FDC006AE153 /* YHTopBackgroundImageView.m in Sources */,
 				8C95FFFE1D20294C006AE153 /* MJType.m in Sources */,
 				8C95FFFD1D20294C006AE153 /* MJIvar.m in Sources */,
+				8C622BBE1D22E762008B4DAF /* YHHeaderMenu.m in Sources */,
 				8C290E121D1FEE2E007B3158 /* YHMusicPlayerViewController.m in Sources */,
 				8C290E211D1FF6BE007B3158 /* UIView+YHFrame.m in Sources */,
 				8C95FFE01D20177F006AE153 /* YHConst.m in Sources */,

@@ -17,7 +17,7 @@
 + (void)setCurrentMusicWith:(YHMusicModel *)model;
 + (YHMusicModel *)getCurrentMusic;
 + (YHMusicModel *)nextMusic;
-+ (YHMusicModel *)lastMusic;
++ (YHMusicModel *)previousMusic;
 
 
 

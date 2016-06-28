@@ -11,13 +11,13 @@
 #import "MJExtension.h"
 
 static NSArray<YHMusicModel *> *_musics;
-static NSInteger _currentIndex;
+static YHMusicModel *_currentModel;
 @implementation YHMusicDataTool
 
 + (void)initialize
 {
     _musics = [YHMusicModel objectArrayWithFile:[[NSBundle mainBundle] pathForResource:@"Musics.plist" ofType:nil]];
-    _currentIndex = 0;
+    _currentModel = _musics[0];
 }
 
 + (NSArray *)allMusics
@@ -27,38 +27,39 @@ static NSInteger _currentIndex;
 
 + (YHMusicModel *)getCurrentMusic
 {
-    return _musics[_currentIndex];
+    return _currentModel;
 }
 
 + (void)setCurrentMusicWith:(YHMusicModel *)model
 {
-    if (model == nil) {
-        _currentIndex = 0;
-        return;
+    if (model == nil) return;
+   
+    if ([_musics containsObject:model]) {
+        
+        _currentModel = model;
     }
-    [_musics enumerateObjectsUsingBlock:^(YHMusicModel *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.name isEqualToString:model.name]) {
-            _currentIndex = idx;
-        }
-    }];
-}
-
-+ (YHMusicModel *)lastMusic
-{
-    if (_currentIndex - 1 >= 0) {
-        return _musics[_currentIndex - 1];
-    }else{
-        return nil;
-    }
+    
 }
 
 + (YHMusicModel *)nextMusic
 {
-    if (_currentIndex + 1 <= _musics.count - 1) {
-        return _musics[_currentIndex + 1];
-    }else{
-        return nil;
+    NSInteger currentIndex = [_musics indexOfObject:_currentModel];
+    
+    if (currentIndex >= _musics.count - 1){
+        return [_musics firstObject];
     }
+    
+    return _musics[currentIndex + 1];
+}
+
++ (YHMusicModel *)previousMusic
+{
+    NSInteger currentIndex = [_musics indexOfObject:_currentModel];
+    
+    if (currentIndex <= 0){
+        return [_musics lastObject];
+    }
+    return _musics[currentIndex - 1];
 }
 
 @end

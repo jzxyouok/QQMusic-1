@@ -26,6 +26,8 @@
 @property (weak,nonatomic) UIButton                   * nextSongBtn;
 @property (weak,nonatomic) UIButton                   * lastSongBtn;
 
+@property (assign,nonatomic) NSTimeInterval            totalTimeInterval;
+
 @end
 
 @implementation YHFooterMenu
@@ -49,9 +51,9 @@
     [self addSubview:slider];
     slider.maximumValue = 1;
     slider.minimumValue = 0;
-    [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-    [slider addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchDown];
-    [slider addTarget:self action:@selector(end:) forControlEvents:UIControlEventTouchUpInside];
+    [slider addTarget:self action:@selector(beginChange) forControlEvents:UIControlEventTouchDown];
+    [slider addTarget:self action:@selector(changing:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(endChange:) forControlEvents:UIControlEventTouchUpInside];
     _progressSlider = slider;
     
     //播放进度
@@ -109,8 +111,62 @@
     btn.tag = type;
 }
 
+#pragma mark - 传值
+- (void)setBtnSelected:(BOOL)select
+{
+    if (select) {
+        self.startOrPauseBtn.selected = YES;
+    }else{
+        self.startOrPauseBtn.selected = NO;
+    }
+}
+
+- (void)setTotalTime:(NSTimeInterval)total
+{
+    _totalTimeLabel.text = [YHTimeIntervalTool playTimeFomartWith:total];
+    self.totalTimeInterval = total;
+}
+
+- (void)setProgressTime:(NSTimeInterval)progress
+{
+    _progressTimeLabel.text = [YHTimeIntervalTool playTimeFomartWith:progress];
+    
+    _progressSlider.value = progress / self.totalTimeInterval;
+    
+    if (_progressSlider.value >= 0.99) {
+        [self nextSong:nil];
+    }
+    
+}
+
 
 #pragma mark - 点击事件
+- (void)beginChange
+{
+    if ([_delegate respondsToSelector:@selector(sliderBeginChange)]) {
+        [_delegate sliderBeginChange];
+    }
+}
+
+- (void)changing:(UISlider *)slider
+{
+    _progressTimeLabel.text = [YHTimeIntervalTool playTimeFomartWith:slider.value * self.totalTimeInterval];
+    
+    if ([_delegate respondsToSelector:@selector(sliderChanging)]) {
+        [_delegate sliderChanging];
+    }
+}
+
+- (void)endChange:(UISlider *)slider
+{
+    _progressTimeLabel.text = [YHTimeIntervalTool playTimeFomartWith:slider.value * self.totalTimeInterval];
+    
+    if ([_delegate respondsToSelector:@selector(sliderEndChange:)]) {
+        [_delegate sliderEndChange:slider.value * self.totalTimeInterval];
+    }
+}
+
+
 - (void)btnDidClick:(UIButton *)btn
 {
     switch (btn.tag) {
@@ -118,7 +174,7 @@
             [self startOrPause:(YHStartOrPauseBtn *)btn];
             break;
         case YHFooterMenuBtnTypeLastSong:
-            [self lastSong:btn];
+            [self previousSong:btn];
             break;
         case YHFooterMenuBtnTypeNextSong:
             [self nextSong:btn];
@@ -129,23 +185,36 @@
 
 - (void)startOrPause:(YHStartOrPauseBtn *)btn
 {
-    btn.selected = !btn.isSelected;
+    
+    
     if (btn.isSelected) {//播放音乐
+        
+        if ([_delegate respondsToSelector:@selector(pause)]) {
+            [_delegate pause];
+        }
        
     }else{//暂停播放
-       
+        if ([_delegate respondsToSelector:@selector(start)]) {
+            [_delegate start];
+        }
     }
+    
+    btn.selected = !btn.isSelected;
 }
 
-- (void)lastSong:(UIButton *)btn
+- (void)previousSong:(UIButton *)btn
 {
-   
+    if ([_delegate respondsToSelector:@selector(previous)]) {
+        [_delegate previous];
+    }
 }
 
 
 - (void)nextSong:(UIButton *)btn
 {
-    
+    if ([_delegate respondsToSelector:@selector(next)]) {
+        [_delegate next];
+    }
 }
 
 #pragma mark - 布局子控件

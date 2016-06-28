@@ -16,4 +16,5 @@ NSString * const YHStopSongNotification            =   @"YHStopSongNotification"
 NSString * const YHWillSpecifyPlayTimeNotification = @"YHWillSpecifyPlayTimeNotification";
 NSString * const YHDidSpecifyPlayTimeNotification  = @"YHDidSpecifyPlayTimeNotification";
 NSString * const YHSelectStartOrPauseBtnNotification = @"YHSelectStartOrPauseBtnNotification";
+NSString * const YHDismissNotification = @"YHDismissNotification";
 CGFloat    const YHStatusBarHeight      =   64;
