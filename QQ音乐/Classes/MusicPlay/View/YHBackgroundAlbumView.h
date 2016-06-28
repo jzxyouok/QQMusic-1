@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YHBackgroundAlbumView : UIImageView
+
+@interface YHBackgroundAlbumView : UIView
+
+
 
 @end

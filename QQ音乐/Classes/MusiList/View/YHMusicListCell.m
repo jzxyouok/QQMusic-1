@@ -88,7 +88,7 @@
     CGFloat margin = 10;
     
     //是否正在播放指示view
-    CGFloat playingIndicatoerMargin = 8;
+    CGFloat playingIndicatoerMargin = 0;
     _playingIndictorView.frame = (CGRect){0,playingIndicatoerMargin,10,self.contentView.height - 2 * playingIndicatoerMargin};
     
     //歌曲名

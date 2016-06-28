@@ -11,6 +11,9 @@
 
 #import "UIView+YHFrame.h"
 #import "YHConst.h"
+#import "YHMusicDataTool.h"
+#import "YHMusicPlayTool.h"
+#import "YHMusicModel.h"
 
 #define  YHScreenW  [UIScreen mainScreen].bounds.size.width
 #define  YHScreenH  [UIScreen mainScreen].bounds.size.height

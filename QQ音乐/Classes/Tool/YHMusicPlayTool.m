@@ -9,66 +9,37 @@
 #import "YHMusicPlayTool.h"
 #import "MJExtension.h"
 #import "YHMusicModel.h"
+#import "YHTimeIntervalTool.h"
+#import "YHMusicDataTool.h"
 
 static NSMutableDictionary *_songs;
-static NSArray *_musics;
-static YHMusicModel *_currentModel;
 @implementation YHMusicPlayTool
 
 + (void)initialize
 {
     _songs = [NSMutableDictionary dictionary];
-    _musics = [NSMutableArray array];
 }
 
-#pragma mark - 返回当前播放歌曲名称
-/**
- * 返回当前播放歌曲的播放器
- */
-+ (YHMusicModel *)currentModel
-{
-    return _currentModel;
-}
 
 /**
- * 返回当前的播放器是否暂停
- */
-+ (BOOL)isCurrentModelPause
-{
-    AVAudioPlayer *current = _songs[_currentModel.name];
-    
-    return !current.isPlaying;
-}
-
-/**
- * 返回本地所有播放器
- */
-+ (NSArray<YHMusicModel *> *)allMusicModels
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Musics.plist" ofType:nil];
-    _musics = [YHMusicModel objectArrayWithFile:path];
-    return _musics;
-}
-
-/**
- * 播放指定文件名音乐
+ * 播放制定音乐
  */
 + (void)playMusicWithModel:(YHMusicModel *)model
 {
-    _currentModel = model;
     
     AVAudioPlayer *player = _songs[model.name];
-    if (!player) {
+    if (player == nil) {
         NSURL *songUrl = [[NSBundle mainBundle] URLForResource:model.filename withExtension:nil];
         player = [[AVAudioPlayer alloc]initWithContentsOfURL:songUrl error:nil];
         _songs[model.name] = player;
+        [YHMusicDataTool setCurrentMusicWith:model];
         
     }
     [player prepareToPlay];
     [player play];
     
     //播放音乐同时发出通知
-    [YHNotificationCenter postNotificationName:YHPlayNotification object:self];
+//    [YHNotificationCenter postNotificationName:YHPlayNotification object:self];
 }
 /**
  * 暂停指定文件名音乐
@@ -81,35 +52,17 @@ static YHMusicModel *_currentModel;
     [player pause];
 }
 
-/**
- * 继续播放当前音乐
- */
-+ (void)playCurrentMusic
-{
-    AVAudioPlayer *player = _songs[_currentModel.name];
-    [player play];
-}
 
 /**
- * 暂停当前播放音乐
+ * 停止播放音乐
  */
-+ (void)pauseCurrentPlayingMusic
-{
-    AVAudioPlayer *current = _songs[_currentModel.name];
-    [current pause];
-}
-
-/**
- * 停止播放当前音乐
- */
-+ (void)stopCurrentPlayingMusic
++ (void)stopPlayingMusicWithModel:(YHMusicModel *)model
 {
 
-    AVAudioPlayer *current = _songs[_currentModel.name];
+    AVAudioPlayer *current = _songs[model.name];
     [current stop];
-    [_songs removeObjectForKey:_currentModel.name];
+    [_songs removeObjectForKey:model.name];
     current = nil;
-    
-    _currentModel = nil;
+    [YHMusicDataTool setCurrentMusicWith:nil];
 }
 @end

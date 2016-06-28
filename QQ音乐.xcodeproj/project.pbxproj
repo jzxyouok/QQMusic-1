@@ -17,7 +17,8 @@
 		8C290E181D1FF3E5007B3158 /* YHBackgroundAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C290E171D1FF3E5007B3158 /* YHBackgroundAlbumView.m */; };
 		8C290E1B1D1FF4AE007B3158 /* YHFooterMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C290E1A1D1FF4AE007B3158 /* YHFooterMenu.m */; };
 		8C290E211D1FF6BE007B3158 /* UIView+YHFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C290E201D1FF6BE007B3158 /* UIView+YHFrame.m */; };
-		8C290E251D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C290E241D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.m */; };
+		8C622BB81D228020008B4DAF /* YHTimeIntervalTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C622BB71D228020008B4DAF /* YHTimeIntervalTool.m */; };
+		8C622BBB1D229E77008B4DAF /* YHMusicDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C622BBA1D229E77008B4DAF /* YHMusicDataTool.m */; };
 		8C731D991D202B6C0085BEBB /* YHMusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C731D981D202B6C0085BEBB /* YHMusicListCell.m */; };
 		8C9500001D20294C006AE153 /* NSObject+MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C95FFF81D20294C006AE153 /* NSObject+MJIvar.m */; };
 		8C9500011D20294C006AE153 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C95FFFA1D20294C006AE153 /* NSObject+MJKeyValue.m */; };
@@ -116,8 +117,10 @@
 		8C290E1F1D1FF6BE007B3158 /* UIView+YHFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YHFrame.h"; sourceTree = "<group>"; };
 		8C290E201D1FF6BE007B3158 /* UIView+YHFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YHFrame.m"; sourceTree = "<group>"; };
 		8C290E221D1FFA29007B3158 /* YH.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YH.pch; path = ../../YH.pch; sourceTree = "<group>"; };
-		8C290E231D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHFooterMenuSubOptionsMenu.h; sourceTree = "<group>"; };
-		8C290E241D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHFooterMenuSubOptionsMenu.m; sourceTree = "<group>"; };
+		8C622BB61D228020008B4DAF /* YHTimeIntervalTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHTimeIntervalTool.h; sourceTree = "<group>"; };
+		8C622BB71D228020008B4DAF /* YHTimeIntervalTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHTimeIntervalTool.m; sourceTree = "<group>"; };
+		8C622BB91D229E77008B4DAF /* YHMusicDataTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMusicDataTool.h; sourceTree = "<group>"; };
+		8C622BBA1D229E77008B4DAF /* YHMusicDataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMusicDataTool.m; sourceTree = "<group>"; };
 		8C731D971D202B6C0085BEBB /* YHMusicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMusicListCell.h; sourceTree = "<group>"; };
 		8C731D981D202B6C0085BEBB /* YHMusicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMusicListCell.m; sourceTree = "<group>"; };
 		8C95FF6F1D20154D006AE153 /* bb@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bb@2x.jpg"; sourceTree = "<group>"; };
@@ -241,6 +244,7 @@
 				8C290E0B1D1FEE06007B3158 /* Classes */,
 				8C290DE41D1FEDB1007B3158 /* Assets.xcassets */,
 				8C290DE91D1FEDB1007B3158 /* Info.plist */,
+				8C95FF6D1D20154D006AE153 /* Resources */,
 				8C290DD81D1FEDB1007B3158 /* Supporting Files */,
 			);
 			path = "QQ音乐";
@@ -249,7 +253,6 @@
 		8C290DD81D1FEDB1007B3158 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8C95FF6D1D20154D006AE153 /* Resources */,
 				8C290DD91D1FEDB1007B3158 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -321,8 +324,6 @@
 				8C290E171D1FF3E5007B3158 /* YHBackgroundAlbumView.m */,
 				8C290E191D1FF4AE007B3158 /* YHFooterMenu.h */,
 				8C290E1A1D1FF4AE007B3158 /* YHFooterMenu.m */,
-				8C290E231D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.h */,
-				8C290E241D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.m */,
 				8CBACA561D200DE700D01032 /* YHStartOrPauseBtn.h */,
 				8CBACA571D200DE700D01032 /* YHStartOrPauseBtn.m */,
 			);
@@ -357,6 +358,10 @@
 			children = (
 				8C95FFDB1D20162E006AE153 /* YHMusicPlayTool.h */,
 				8C95FFDC1D20162E006AE153 /* YHMusicPlayTool.m */,
+				8C622BB91D229E77008B4DAF /* YHMusicDataTool.h */,
+				8C622BBA1D229E77008B4DAF /* YHMusicDataTool.m */,
+				8C622BB61D228020008B4DAF /* YHTimeIntervalTool.h */,
+				8C622BB71D228020008B4DAF /* YHTimeIntervalTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -664,6 +669,7 @@
 			files = (
 				8C95FFDD1D20162E006AE153 /* YHMusicPlayTool.m in Sources */,
 				8C95FFDA1D201598006AE153 /* YHMusicModel.m in Sources */,
+				8C622BB81D228020008B4DAF /* YHTimeIntervalTool.m in Sources */,
 				8C731D991D202B6C0085BEBB /* YHMusicListCell.m in Sources */,
 				8C290DDD1D1FEDB1007B3158 /* AppDelegate.m in Sources */,
 				8CBACA581D200DE700D01032 /* YHStartOrPauseBtn.m in Sources */,
@@ -683,7 +689,7 @@
 				8C95FFFF1D20294C006AE153 /* NSObject+MJCoding.m in Sources */,
 				8C290E181D1FF3E5007B3158 /* YHBackgroundAlbumView.m in Sources */,
 				8C290E151D1FF19B007B3158 /* YHNavigationViewController.m in Sources */,
-				8C290E251D1FFC8A007B3158 /* YHFooterMenuSubOptionsMenu.m in Sources */,
+				8C622BBB1D229E77008B4DAF /* YHMusicDataTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,7 +751,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREFIX_HEADER = "/Users/bot/Desktop/模仿/QQ音乐/QQ音乐/YH.pch";
+				GCC_PREFIX_HEADER = "/Users/bot/Desktop/模仿/QQMusic/QQ音乐/YH.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -787,7 +793,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "/Users/bot/Desktop/模仿/QQ音乐/QQ音乐/YH.pch";
+				GCC_PREFIX_HEADER = "/Users/bot/Desktop/模仿/QQMusic/QQ音乐/YH.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

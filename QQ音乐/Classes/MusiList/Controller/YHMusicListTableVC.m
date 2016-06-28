@@ -9,6 +9,7 @@
 #import "YHMusicListTableVC.h"
 #import "YHTopBackgroundImageView.h"
 #import "YHMusicPlayTool.h"
+#import "YHMusicDataTool.h"
 #import "YHMusicModel.h"
 #import "YHMusicListCell.h"
 #import "YHMusicPlayerViewController.h"
@@ -34,18 +35,18 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
     [self setupUI];
 }
 
-#pragma mark - 初始化配置
+#pragma mark - 初始化
+//设置数据
 - (void)setupData
 {
-    self.musics = [YHMusicPlayTool allMusicModels];
+    self.musics = [YHMusicDataTool allMusics];
 }
-
+//设置UI
 - (void)setupUI
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.contentInset = UIEdgeInsetsMake(YHTableViewInset, 0, 0, 0);
-    
     
     YHTopBackgroundImageView *topImageView = [[YHTopBackgroundImageView alloc]initWithFrame:CGRectMake(0,-YHTopBgImageHeight, self.view.width, YHTopBgImageHeight)];
     _topBgImageView = topImageView;
@@ -72,7 +73,7 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 55;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,6 +83,7 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
     
     //跳转控制器
     YHMusicPlayerViewController *playerVC = [[YHMusicPlayerViewController alloc]init];
+    
     playerVC.model = self.musics[indexPath.row];
     [self.navigationController pushViewController:playerVC animated:YES];
 }
@@ -115,5 +117,7 @@ CGFloat const YHTableViewInset = YHTopBgImageHeight - YHTopCoveredHeight;
     }
     _topBgImageView.transform = CGAffineTransformMakeScale(scaleW, scaleH);
 }
+
+
 
 @end

@@ -13,4 +13,7 @@ extern NSString * const YHPauseNotificaiton;
 extern NSString * const YHLastSongNotification;
 extern NSString * const YHNextSongNotificaiton;
 extern NSString * const YHStopSongNotification;
+extern NSString * const YHWillSpecifyPlayTimeNotification;
+extern NSString * const YHDidSpecifyPlayTimeNotification;
+extern NSString * const YHSelectStartOrPauseBtnNotification;
 extern CGFloat  const YHStatusBarHeight;

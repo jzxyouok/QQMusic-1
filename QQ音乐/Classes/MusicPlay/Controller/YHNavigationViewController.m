@@ -7,6 +7,7 @@
 //
 
 #import "YHNavigationViewController.h"
+#import "YHMusicPlayerViewController.h"
 
 @interface YHNavigationViewController ()
 
@@ -20,11 +21,14 @@
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:0];
     self.navigationBar.shadowImage = [UIImage new];
     self.navigationBar.backgroundColor = [UIColor clearColor];
+    self.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-//    NSLog(@"%ld",self.viewControllers.count);
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
     
     [super pushViewController:viewController animated:animated];
 }

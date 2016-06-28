@@ -7,21 +7,24 @@
 //
 
 #import "YHFooterMenu.h"
-#import "YHFooterMenuSubOptionsMenu.h"
 #import "YHStartOrPauseBtn.h"
+#import "YHMusicPlayTool.h"
+#import "YHTimeIntervalTool.h"
 
 /**
  * 这个类既发出播放音乐的通知，同时也是播放音乐通知的接受者
  */
 
+#define YHSliderProgressIndicatorFont [UIFont systemFontOfSize:11]
+
 @interface YHFooterMenu ()
 
-@property (weak,nonatomic) UISlider * progressSlider;
-@property (weak,nonatomic) YHStartOrPauseBtn * startOrPauseBtn;
-@property (weak,nonatomic) UIButton * nextSongBtn;
-@property (weak,nonatomic) UIButton * lastSongBtn;
-
-@property (weak,nonatomic) YHFooterMenuSubOptionsMenu * subOptionsMenu;
+@property (weak,nonatomic) UISlider                   * progressSlider;
+@property (weak,nonatomic) UILabel                    * progressTimeLabel;
+@property (weak,nonatomic) UILabel                    * totalTimeLabel;
+@property (weak,nonatomic) YHStartOrPauseBtn          * startOrPauseBtn;
+@property (weak,nonatomic) UIButton                   * nextSongBtn;
+@property (weak,nonatomic) UIButton                   * lastSongBtn;
 
 @end
 
@@ -31,19 +34,10 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor purpleColor];
-        [YHNotificationCenter addObserver:self selector:@selector(play) name:YHPlayNotification object:nil];
+       
         [self setupUI];
     }
     return self;
-}
-
-//当点击进cell时，决定播放按钮是否选中
-- (void)play
-{    
-    if (self.startOrPauseBtn.selected == NO) {
-        self.startOrPauseBtn.selected = YES;
-    }
 }
 
 #pragma mark - 配置UI
@@ -52,10 +46,29 @@
     //播放进度条
     UISlider *slider = [[UISlider alloc]init];
     [slider setThumbImage:[UIImage imageNamed:@"player_slider_playback_thumb"] forState:UIControlStateNormal];
-    slider.backgroundColor = [UIColor blueColor];
     [self addSubview:slider];
+    slider.maximumValue = 1;
+    slider.minimumValue = 0;
+    [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchDown];
+    [slider addTarget:self action:@selector(end:) forControlEvents:UIControlEventTouchUpInside];
     _progressSlider = slider;
     
+    //播放进度
+    UILabel *progress = [[UILabel alloc]init];
+    progress.textAlignment = NSTextAlignmentCenter;
+    progress.textColor = [UIColor whiteColor];
+    progress.font = YHSliderProgressIndicatorFont;
+    [self addSubview:progress];
+    _progressTimeLabel = progress;
+    
+    //播放总时长
+    UILabel *totalTime = [[UILabel alloc]init];
+    totalTime.textAlignment = NSTextAlignmentCenter;
+    totalTime.textColor = [UIColor whiteColor];
+    totalTime.font = YHSliderProgressIndicatorFont;
+    [self addSubview:totalTime];
+    _totalTimeLabel = totalTime;
     
     //上一首
     UIButton *btn2 = [self btnWithImage:[UIImage imageNamed:@"player_btn_pre_normal"] selectedImage:nil highlightedImage:[UIImage imageNamed:@"player_btn_pre_highlight"] withTag:YHFooterMenuBtnTypeLastSong];
@@ -64,7 +77,7 @@
     
     //暂停或继续按钮
     YHStartOrPauseBtn *btn1 = (YHStartOrPauseBtn *)[self btnWithImage:[UIImage imageNamed:@"player_btn_play_normal"] selectedImage:[UIImage imageNamed:@"player_btn_pause_normal"] highlightedImage:[UIImage imageNamed:@"player_btn_play_highlight"] withTag:YHFooterMenuBtnTypeStartOrPause];
-    btn1.backgroundColor = [UIColor redColor];
+    btn1.selected = YES;
     [self addSubview:btn1];
     _startOrPauseBtn = btn1;
 
@@ -96,6 +109,7 @@
     btn.tag = type;
 }
 
+
 #pragma mark - 点击事件
 - (void)btnDidClick:(UIButton *)btn
 {
@@ -117,34 +131,42 @@
 {
     btn.selected = !btn.isSelected;
     if (btn.isSelected) {//播放音乐
-        [YHNotificationCenter postNotificationName:YHPlayNotification object:self];
+       
     }else{//暂停播放
-        [YHNotificationCenter postNotificationName:YHPauseNotificaiton object:self];
+       
     }
 }
 
 - (void)lastSong:(UIButton *)btn
 {
-    //切换到上一首
-    [YHNotificationCenter postNotificationName:YHLastSongNotification object:self];
+   
 }
 
 
 - (void)nextSong:(UIButton *)btn
 {
-    //切换到下一首
-    [YHNotificationCenter postNotificationName:YHNextSongNotificaiton object:self];
+    
 }
 
 #pragma mark - 布局子控件
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-   
-   //进度条
+    
     CGFloat menuW = self.bounds.size.width;
     CGFloat sliderH = 20;
-    _progressSlider.frame = (CGRect){0,0,menuW,sliderH};
+    
+    //播放进度
+    CGFloat labelW = menuW * 0.1;
+    CGFloat labelH = sliderH;
+    _progressTimeLabel.frame = (CGRect){0,0,labelW,labelH};
+    
+   //进度条
+    CGFloat sliderW = menuW - 2 * labelW;
+    _progressSlider.frame = (CGRect){labelW,0,sliderW,sliderH};
+    
+    //播放总时长
+    _totalTimeLabel.frame = (CGRect){_progressSlider.maxX,0,labelW,labelH};
     
     //播放按钮
     CGFloat btnW1 = menuW * 0.3;
