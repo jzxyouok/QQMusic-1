@@ -151,18 +151,11 @@
 
 - (void)start
 {
-    
-  
     AVAudioPlayer *currentPlayer = [YHMusicPlayTool getCurrentPlayer];
     if (!currentPlayer.isPlaying && currentPlayer != nil) {
         [self addProgressTimer];
         [currentPlayer play];
     }
-    
-    
-    
-//    YHMusicModel *current = [YHMusicDataTool getCurrentMusic];
-//    [YHMusicPlayTool playMusicWithModel:current];
 }
 
 - (void)pause
@@ -220,7 +213,8 @@
 
 - (void)sliderEndChange:(NSTimeInterval)endTime
 {
-   
+    [self removeProgressTimer];
+    
     AVAudioPlayer *currentPlayer = [YHMusicPlayTool getCurrentPlayer];
     
     currentPlayer.currentTime = endTime;
@@ -230,7 +224,11 @@
         [self addProgressTimer];
         [currentPlayer play];
         [self.footerMenu setBtnSelected:YES];
+    }else if (currentPlayer != nil && currentPlayer.isPlaying){
+        [self addProgressTimer];
     }
+    
+   
     
 }
 
